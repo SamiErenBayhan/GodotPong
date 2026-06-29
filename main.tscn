@@ -1,6 +1,26 @@
 [gd_scene format=3 uid="uid://cxns2b0h8o4yn"]
 
-[ext_resource type="Script" uid="uid://djx4ey3qn1vh6" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://hdk22ig33bi" path="res://ball.tscn" id="1_ig7tw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ig7tw"]
+size = Vector2(1145, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(1137, 20)
 
 [node name="Main" type="Node2D" unique_id=2102904543]
-script = ExtResource("1_ig7tw")
+
+[node name="TopWall" type="StaticBody2D" parent="." unique_id=1443657249]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall" unique_id=418158547]
+position = Vector2(582, 142)
+shape = SubResource("RectangleShape2D_ig7tw")
+
+[node name="BottomWall" type="StaticBody2D" parent="." unique_id=150988042]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall" unique_id=1306000706]
+position = Vector2(582, 495)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="Ball" parent="." unique_id=1668174330 instance=ExtResource("1_ig7tw")]
+position = Vector2(-19, 0)
