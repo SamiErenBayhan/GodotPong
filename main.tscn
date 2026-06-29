@@ -1,26 +1,19 @@
 [gd_scene format=3 uid="uid://cxns2b0h8o4yn"]
 
 [ext_resource type="PackedScene" uid="uid://hdk22ig33bi" path="res://ball.tscn" id="1_ig7tw"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ig7tw"]
-size = Vector2(1145, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
-size = Vector2(1137, 20)
+[ext_resource type="PackedScene" uid="uid://dma1vcxohgkut" path="res://wall.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bfq14hidm52dx" path="res://paddle.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://q5bk8tc1npge" path="res://AIPaddle.gd" id="4_1bvp3"]
 
 [node name="Main" type="Node2D" unique_id=2102904543]
 
-[node name="TopWall" type="StaticBody2D" parent="." unique_id=1443657249]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall" unique_id=418158547]
-position = Vector2(582, 142)
-shape = SubResource("RectangleShape2D_ig7tw")
-
-[node name="BottomWall" type="StaticBody2D" parent="." unique_id=150988042]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall" unique_id=1306000706]
-position = Vector2(582, 495)
-shape = SubResource("RectangleShape2D_0xm2m")
-
 [node name="Ball" parent="." unique_id=1668174330 instance=ExtResource("1_ig7tw")]
 position = Vector2(-19, 0)
+
+[node name="Wall" parent="." unique_id=1649393895 instance=ExtResource("2_0xm2m")]
+position = Vector2(0, 1)
+
+[node name="Paddle" parent="." unique_id=905779673 instance=ExtResource("3_h2yge")]
+position = Vector2(808, 227)
+script = ExtResource("4_1bvp3")
+ai_smarts = 0.2
