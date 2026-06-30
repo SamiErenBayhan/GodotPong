@@ -1,19 +1,70 @@
 [gd_scene format=3 uid="uid://cxns2b0h8o4yn"]
 
 [ext_resource type="PackedScene" uid="uid://hdk22ig33bi" path="res://ball.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://dma1vcxohgkut" path="res://wall.tscn" id="2_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://bfq14hidm52dx" path="res://paddle.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://crbijtv5fhcie" path="res://paddle.gd" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://q5bk8tc1npge" path="res://AIPaddle.gd" id="4_1bvp3"]
 
-[node name="Main" type="Node2D" unique_id=2102904543]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1bvp3"]
+load_path = "res://.godot/imported/Bg.png-e655560aa9516414b7fa1fc592ff6458.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(24, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(24, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
+size = Vector2(1152, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_272bh"]
+size = Vector2(1152, 24)
+
+[node name="Main" type="Node2D" unique_id=202227438]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1273210421]
+texture_filter = 1
+scale = Vector2(1, 0.99999994)
+texture = SubResource("CompressedTexture2D_1bvp3")
+centered = false
 
 [node name="Ball" parent="." unique_id=1668174330 instance=ExtResource("1_ig7tw")]
-position = Vector2(-19, 0)
+position = Vector2(-8, 24)
 
-[node name="Wall" parent="." unique_id=1649393895 instance=ExtResource("2_0xm2m")]
-position = Vector2(0, 1)
+[node name="RightPlayer" type="CharacterBody2D" parent="." unique_id=1332368087]
+script = ExtResource("2_h2yge")
 
-[node name="Paddle" parent="." unique_id=905779673 instance=ExtResource("3_h2yge")]
-position = Vector2(808, 227)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightPlayer" unique_id=1079242455]
+position = Vector2(1100, 320)
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="ColorRect" type="ColorRect" parent="RightPlayer" unique_id=1464723569]
+offset_left = 1088.0
+offset_top = 256.0
+offset_right = 1112.0
+offset_bottom = 384.0
+
+[node name="LeftPlayer" type="CharacterBody2D" parent="." unique_id=1414792961 node_paths=PackedStringArray("ball")]
 script = ExtResource("4_1bvp3")
-ai_smarts = 0.2
+ball = NodePath("../Ball")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftPlayer" unique_id=1646858928]
+position = Vector2(52, 320)
+shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="ColorRect" type="ColorRect" parent="LeftPlayer" unique_id=907342499]
+offset_left = 40.0
+offset_top = 256.0
+offset_right = 64.0
+offset_bottom = 384.0
+
+[node name="Top" type="StaticBody2D" parent="." unique_id=1878058924]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top" unique_id=1422798773]
+position = Vector2(576, 660)
+shape = SubResource("RectangleShape2D_7mycd")
+
+[node name="Bottom" type="StaticBody2D" parent="." unique_id=962096875]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom" unique_id=1766723756]
+position = Vector2(576, -12)
+shape = SubResource("RectangleShape2D_272bh")

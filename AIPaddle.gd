@@ -1,31 +1,18 @@
 extends CharacterBody2D
+@export var SPEED: float = 700.0#export olayı inspectordan veri girmemizi sağlıyor
+@export var ball: CharacterBody2D
 
-# Raketin ilk/taban hızı (Top uzaktayken bu hızda çalışır)
-var base_speed: float = 400.0
-var ball: CharacterBody2D
+var min_y: float = -260.0#max ve min gidebileceği değerler
+var max_y: float = 260.0
 
-func _ready() -> void:
-	ball = get_parent().get_node("Ball")
+func _physics_process(delta):
+	if ball == null or not is_instance_valid(ball):#birisi sayı yapıp top silindiğinde bu kodun çökmemesini sağlar
+		return
 
-func _physics_process(delta: float) -> void:
-	if ball:
-		# 1. Geleceği tahmin eden o asil Y pozisyonu hesaplamamız:
-		var next_ball_pos_y = ball.global_position.y + (ball.direction.y * ball.speed * delta)
-		
-		# 🎯 2. TOP YAKLAŞTIKÇA HIZLANMA MANTIĞI:
-		# Top ile raket arasındaki yatay (X eksenindeki) mesafeyi buluyoruz.
-		var distance_x = abs(ball.global_position.x - global_position.x)
-		
-		# Mesafe azaldıkça (top yaklaştıkça) hızı dinamik olarak arttıran basit matematik:
-		# Top en dibimize geldiğinde hızı otomatik olarak 400'den ~750'ye kadar fırlatır!
-		var dynamic_speed = base_speed + (20000.0 / (distance_x + 50.0))
-		
-		# 3. Raketi bu dinamik hıza göre yönlendiriyoruz:
-		if next_ball_pos_y < global_position.y:
-			velocity.y = -dynamic_speed
-		elif next_ball_pos_y > global_position.y:
-			velocity.y = dynamic_speed
-		else:
-			velocity.y = 0
-			
-	move_and_slide()
+	var target_y = clamp(ball.global_position.y + ball.velocity.y * 0.5, min_y, max_y)#burdaki mantık topun 0.5 saniye sonra nereye gideceğini hesaplıyoruz
+	global_position.y = move_toward(global_position.y, target_y, SPEED * delta)#target y ye doğru raketi kaydırır fakat bunu move_toward ile pürüssüz yapar
+	global_position.y = clamp(global_position.y, min_y, max_y)#clamp fonksiyonu da bu tahmini hedefin belirlenen sınırların (-260 ile 270) dışına taşmamasını sağlıyor.
+
+#clamp(value, min, max)
+#move_toward(from, to, delta) hedefe sabit bir hızla gider bundan dolayı titreme yapmaz
+#is_instance_valid(instance) Hafızada bir nesnenin (Node, CharacterBody, Enemy vb.) hâlâ canlı ve geçerli olup olmadığını kontrol eder.
