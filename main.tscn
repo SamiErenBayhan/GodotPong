@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://cxns2b0h8o4yn"]
 
+[ext_resource type="Script" uid="uid://djx4ey3qn1vh6" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cw618txyycws1" path="res://right_player.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://hdk22ig33bi" path="res://ball.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://pfsbucby441d" path="res://left_player.tscn" id="2_1bvp3"]
+[ext_resource type="FontFile" uid="uid://bj83w4kxg41bq" path="res://PublicPixel-rv0pA.ttf" id="5_lquwl"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1bvp3"]
 load_path = "res://.godot/imported/Bg.png-e655560aa9516414b7fa1fc592ff6458.ctex"
@@ -13,7 +15,12 @@ size = Vector2(1152, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_272bh"]
 size = Vector2(1152, 24)
 
-[node name="Main" type="Node2D" unique_id=202227438]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
+size = Vector2(16, 648)
+
+[node name="Main" type="Node2D" unique_id=202227438 node_paths=PackedStringArray("ball_node")]
+script = ExtResource("1_1bvp3")
+ball_node = NodePath("Entities/Ball")
 
 [node name="Environment" type="Node2D" parent="." unique_id=1683183522]
 
@@ -44,3 +51,40 @@ ball = NodePath("../Ball")
 
 [node name="Ball" parent="Entities" unique_id=1668174330 instance=ExtResource("1_ig7tw")]
 position = Vector2(-8, 24)
+
+[node name="RightScoreArea" type="Area2D" parent="." unique_id=1655399688]
+
+[node name="RightScore" type="CollisionShape2D" parent="RightScoreArea" unique_id=2121096539]
+position = Vector2(1160, 324)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="Label" type="Label" parent="RightScoreArea" unique_id=836298976]
+offset_left = 448.0
+offset_top = 64.0
+offset_right = 512.0
+offset_bottom = 128.0
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 54
+text = "0"
+horizontal_alignment = 1
+
+[node name="LeftScoreArea" type="Area2D" parent="." unique_id=1554505935]
+
+[node name="LeftScore" type="CollisionShape2D" parent="LeftScoreArea" unique_id=921969600]
+position = Vector2(-8, 324)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="Label" type="Label" parent="LeftScoreArea" unique_id=1889234318]
+offset_left = 640.0
+offset_top = 64.0
+offset_right = 704.0
+offset_bottom = 128.0
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 54
+text = "0"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="RightScoreArea" to="." method="_on_right_score_area_body_entered"]
+[connection signal="body_entered" from="RightScoreArea" to="Entities/Ball" method="_on_right_score_area_body_entered"]
+[connection signal="body_entered" from="LeftScoreArea" to="." method="_on_left_score_area_body_entered"]
+[connection signal="body_entered" from="LeftScoreArea" to="Entities/Ball" method="_on_left_score_area_body_entered"]

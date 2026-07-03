@@ -5,9 +5,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
 size = Vector2(24, 128)
 
-[node name="LeftPlayer" type="CharacterBody2D" unique_id=1754458145 node_paths=PackedStringArray("ball")]
+[node name="LeftPlayer" type="CharacterBody2D" unique_id=1754458145]
 script = ExtResource("1_werpw")
-ball = NodePath("")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1088964857]
 position = Vector2(52, 320)
