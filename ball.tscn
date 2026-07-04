@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://hdk22ig33bi"]
 
 [ext_resource type="Script" uid="uid://ctdx5enequp3w" path="res://ball.gd" id="1_x8fbi"]
+[ext_resource type="AudioStream" uid="uid://bix2vefqqg63p" path="res://Ball_Sound.mp3" id="2_41u45"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8fbi"]
 size = Vector2(16, 16)
 
-[node name="Ball" type="Area2D" unique_id=694106616]
+[node name="Ball" type="CharacterBody2D" unique_id=1075392709]
 script = ExtResource("1_x8fbi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1976747922]
@@ -18,4 +19,5 @@ offset_top = 288.0
 offset_right = 592.0
 offset_bottom = 304.0
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=2085817997]
+stream = ExtResource("2_41u45")
