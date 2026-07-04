@@ -45,12 +45,18 @@ shape = SubResource("RectangleShape2D_272bh")
 [node name="Entities" type="Node2D" parent="." unique_id=1829764881]
 
 [node name="LeftPlayer" parent="Entities" unique_id=1754458145 node_paths=PackedStringArray("ball") instance=ExtResource("2_1bvp3")]
+collision_layer = 2
+safe_margin = 1.0
 ball = NodePath("../Ball")
 
 [node name="RightPlayer" parent="Entities" unique_id=1761808133 instance=ExtResource("1_h2yge")]
+collision_layer = 2
+safe_margin = 1.0
 
 [node name="Ball" parent="Entities" unique_id=1668174330 instance=ExtResource("1_ig7tw")]
 position = Vector2(-8, 24)
+collision_mask = 3
+safe_margin = 0.01
 
 [node name="RightScoreArea" type="Area2D" parent="." unique_id=1655399688]
 
@@ -84,7 +90,81 @@ theme_override_font_sizes/font_size = 54
 text = "0"
 horizontal_alignment = 1
 
+[node name="LeftPlayerWin" type="CanvasLayer" parent="." unique_id=1875162156]
+process_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="LeftPlayerWin" unique_id=1512380836]
+offset_left = 192.0
+offset_top = 192.0
+offset_right = 384.0
+offset_bottom = 448.0
+color = Color(0.25490198, 0.25490198, 0.25490198, 0)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="LeftPlayerWin" unique_id=1224208913]
+offset_left = 192.0
+offset_top = 240.0
+offset_right = 384.0
+offset_bottom = 339.0
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 48
+text = "WIN
+"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="LeftPlayerWin" unique_id=1226036947]
+anchors_preset = -1
+anchor_left = -0.013888889
+anchor_right = 0.013888889
+offset_left = 208.0
+offset_top = 320.0
+offset_right = 368.0
+offset_bottom = 400.0
+theme_override_colors/font_outline_color = Color(0.47788018, 0.47788012, 0.47788012, 0)
+theme_override_fonts/font = ExtResource("5_lquwl")
+text = "PLAY AGAIN"
+metadata/_edit_use_anchors_ = true
+
+[node name="RightPlayerWin" type="CanvasLayer" parent="." unique_id=1749004564]
+process_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="RightPlayerWin" unique_id=776729579]
+offset_left = 768.0
+offset_top = 192.0
+offset_right = 960.0
+offset_bottom = 448.0
+color = Color(0.25490198, 0.25490198, 0.25490198, 0)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="RightPlayerWin" unique_id=875252304]
+offset_left = 768.0
+offset_top = 240.0
+offset_right = 960.0
+offset_bottom = 339.0
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 48
+text = "WIN
+"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="RightPlayerWin" unique_id=1002076102]
+anchors_preset = -1
+anchor_left = -0.013888889
+anchor_right = 0.013888889
+offset_left = 784.0
+offset_top = 320.0
+offset_right = 944.0
+offset_bottom = 400.0
+theme_override_colors/font_outline_color = Color(0.47788018, 0.47788012, 0.47788012, 0)
+theme_override_fonts/font = ExtResource("5_lquwl")
+text = "PLAY AGAIN"
+metadata/_edit_use_anchors_ = true
+
 [connection signal="body_entered" from="RightScoreArea" to="." method="_on_right_score_area_body_entered"]
 [connection signal="body_entered" from="RightScoreArea" to="Entities/Ball" method="_on_right_score_area_body_entered"]
 [connection signal="body_entered" from="LeftScoreArea" to="." method="_on_left_score_area_body_entered"]
 [connection signal="body_entered" from="LeftScoreArea" to="Entities/Ball" method="_on_left_score_area_body_entered"]
+[connection signal="pressed" from="LeftPlayerWin/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="RightPlayerWin/Button" to="." method="_on_button_pressed"]
