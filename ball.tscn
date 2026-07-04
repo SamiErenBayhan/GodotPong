@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8fbi"]
 size = Vector2(16, 16)
 
-[node name="Ball" type="CharacterBody2D" unique_id=1668174330]
+[node name="Ball" type="Area2D" unique_id=694106616]
 script = ExtResource("1_x8fbi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1976747922]
@@ -17,3 +17,5 @@ offset_left = 576.0
 offset_top = 288.0
 offset_right = 592.0
 offset_bottom = 304.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

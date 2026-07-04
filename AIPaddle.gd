@@ -1,6 +1,6 @@
 extends CharacterBody2D
 @export var SPEED: float = 500.0#export olayı inspectordan veri girmemizi sağlıyor
-@export var ball: CharacterBody2D
+@export var ball: Area2D
 
 var min_y: float = -260.0#max ve min gidebileceği değerler
 var max_y: float = 260.0
